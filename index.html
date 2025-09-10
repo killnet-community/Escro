@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escrow Agent Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #000000;
+            color: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 32rem;
+        }
+
+        .card {
+            background-color: #0a0a0a;
+            border: 1px solid #262626;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .icon-container {
+            width: 4rem;
+            height: 4rem;
+            background-color: #3b82f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .icon {
+            width: 2rem;
+            height: 2rem;
+            color: white;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fafafa;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #a3a3a3;
+        }
+
+        .form {
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #fafafa;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #262626;
+            border-radius: 6px;
+            background-color: #000000;
+            color: #fafafa;
+            font-size: 1rem;
+            transition: all 0.2s;
+            padding-right: 2.5rem;
+        }
+
+        .input::placeholder {
+            color: #a3a3a3;
+	    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+font-size: 0.95rem;	
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            color: #a3a3a3;
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: #a3a3a3;
+            margin-top: 0.5rem;
+        }
+
+        .button {
+            width: 100%;
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .button:hover:not(:disabled) {
+            background-color: #2563eb;
+        }
+
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            max-width: 28rem;
+            width: calc(100% - 2rem);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-card {
+            background-color: #0a0a0a;
+            border: 1px solid #262626;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .notification-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.success {
+            background-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .notification-icon.error {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .notification-icon svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .notification-icon.success svg {
+            color: #22c55e;
+        }
+
+        .notification-icon.error svg {
+            color: #ef4444;
+        }
+
+        .notification-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .notification-title.success {
+            color: #22c55e;
+        }
+
+        .notification-title.error {
+            color: #ef4444;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: #a3a3a3;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .notification-close:hover {
+            color: #fafafa;
+        }
+
+        .notification-details {
+            font-size: 0.75rem;
+            color: #a3a3a3;
+        }
+
+        .notification-details div {
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-details div:last-child {
+            margin-bottom: 0;
+        }
+
+        .notification-details strong {
+            font-weight: 500;
+        }
+
+        .notification-message {
+            font-size: 0.75rem;
+            color: #ef4444;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Header Section -->
+            <div class="header">
+                <div class="icon-container">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h1 class="title">Escrow Agent Verification</h1>
+                <p class="subtitle">Enter the Agent's Telegram username and verify it.</p>
+            </div>
+
+            <!-- Form -->
+            <form class="form" id="verificationForm">
+                <div class="form-group">
+                    <label for="username" class="label">Telegram Username</label>
+                    <div class="input-container">
+                        <input
+                            type="text"
+                            id="username"
+                            class="input"
+                            placeholder="Enter username"
+                            required
+                        />
+                        <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <p class="helper-text">Enter the agent's username without the @ symbol</p>
+                </div>
+
+                <button type="submit" class="button" id="submitButton">
+                    <span id="buttonText">Verify Agent</span>
+                    <div class="loading-spinner hidden" id="loadingSpinner"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification hidden" id="successNotification">
+        <div class="notification-card">
+            <div class="notification-content">
+                <div class="notification-icon success">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <div class="notification-body">
+                    <div class="notification-header">
+                        <h3 class="notification-title success">Agent Verified</h3>
+                        <button class="notification-close" onclick="hideNotification('success')">✕</button>
+                    </div>
+                    <div class="notification-details">
+                        <div><strong>Telegram:</strong> @Escrow_Worldwide</div>
+                        <div><strong>License No.:</strong> 21843595343</div>
+                        <div><strong>Agent Name:</strong> Krupal Sharma</div>
+                        <div><strong>Escrow Mode:</strong> Crypto Currency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Notification -->
+    <div class="notification hidden" id="errorNotification">
+        <div class="notification-card">
+            <div class="notification-content">
+                <div class="notification-icon error">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <div class="notification-body">
+                    <div class="notification-header">
+                        <h3 class="notification-title error">Agent Not Found</h3>
+                        <button class="notification-close" onclick="hideNotification('error')">✕</button>
+                    </div>
+                    <p class="notification-message">This agent is not registered. Please verify the username or be cautious.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('verificationForm');
+        const usernameInput = document.getElementById('username');
+        const submitButton = document.getElementById('submitButton');
+        const buttonText = document.getElementById('buttonText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const successNotification = document.getElementById('successNotification');
+        const errorNotification = document.getElementById('errorNotification');
+
+        const correctUsername = 'Escrow_Worldwide';
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                return;
+            }
+
+            // Show loading state
+            setLoading(true);
+
+            // Simulate processing time
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Hide loading state
+            setLoading(false);
+
+            // Check username and show appropriate notification
+            if (username === correctUsername) {
+                showNotification('success');
+            } else {
+                showNotification('error');
+            }
+        });
+
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            
+            if (isLoading) {
+                buttonText.textContent = 'Verifying...';
+                loadingSpinner.classList.remove('hidden');
+            } else {
+                buttonText.textContent = 'Verify Agent';
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        function showNotification(type) {
+            // Hide any existing notifications
+            hideNotification('success');
+            hideNotification('error');
+
+            // Show the appropriate notification
+            const notification = type === 'success' ? successNotification : errorNotification;
+            notification.classList.remove('hidden');
+
+            // Auto-hide after delay
+            const delay = type === 'success' ? 10000 : 8000;
+            setTimeout(() => hideNotification(type), delay);
+        }
+
+        function hideNotification(type) {
+            const notification = type === 'success' ? successNotification : errorNotification;
+            notification.classList.add('hidden');
+        }
+
+        // Close notification when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.notification-card') && !e.target.closest('#submitButton')) {
+                hideNotification('success');
+                hideNotification('error');
+            }
+        });
+    </script>
+</body>
+</html>
