@@ -104,8 +104,8 @@
 
         .input::placeholder {
             color: #a3a3a3;
-	    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-font-size: 0.95rem;	
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 0.95rem;	
         }
 
         .input:focus {
@@ -330,7 +330,7 @@ font-size: 0.95rem;
                             type="text"
                             id="username"
                             class="input"
-                            placeholder="Enter Username"
+                            placeholder="Enter username"
                             required
                         />
                         <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,12 +362,7 @@ font-size: 0.95rem;
                         <h3 class="notification-title success">Agent Verified</h3>
                         <button class="notification-close" onclick="hideNotification('success')">✕</button>
                     </div>
-                    <div class="notification-details">
-                        <div><strong>Telegram:</strong> @Escrow_Worldwide</div>
-                        <div><strong>License No.:</strong> 21843595343</div>
-                        <div><strong>Agent Name:</strong> Krupal Sharma</div>
-                        <div><strong>Escrow Mode:</strong> Crypto Currency</div>
-                    </div>
+                    <div class="notification-details"></div>
                 </div>
             </div>
         </div>
@@ -387,7 +382,7 @@ font-size: 0.95rem;
                         <h3 class="notification-title error">Agent Not Found</h3>
                         <button class="notification-close" onclick="hideNotification('error')">✕</button>
                     </div>
-                    <p class="notification-message">This agent is not registered. Please verify the username or be cautious.</p>
+                    <p class="notification-message">This agent is not registered; please verify the username, as it may be fraudulent. </p>
                 </div>
             </div>
         </div>
@@ -402,7 +397,24 @@ font-size: 0.95rem;
         const successNotification = document.getElementById('successNotification');
         const errorNotification = document.getElementById('errorNotification');
 
-        const correctUsername = 'Escrow_Worldwide';
+        // ✅ Registered agents
+        const agents = {
+            "Escrow_Worldwide": {
+                telegram: "@Escrow_Worldwide",
+                license: "21843595343",
+                name: "Krupal Sharma",
+                mode: "Crypto Currency"
+            },
+            "Escrow_Crypto": {
+                telegram: "@Escrow_Crypto",
+                license: "21524741312",
+                name: "Mohammad Asif",
+                mode: "Crypto Currency"
+            }
+        };
+
+        // Target the details container inside success notification
+        const detailsContainer = successNotification.querySelector(".notification-details");
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -422,8 +434,15 @@ font-size: 0.95rem;
             // Hide loading state
             setLoading(false);
 
-            // Check username and show appropriate notification
-            if (username === correctUsername) {
+            // ✅ Check if username exists in agents list
+            if (agents[username]) {
+                const agent = agents[username];
+                detailsContainer.innerHTML = `
+                    <div><strong>Telegram:</strong> ${agent.telegram}</div>
+                    <div><strong>License No.:</strong> ${agent.license}</div>
+                    <div><strong>Agent Name:</strong> ${agent.name}</div>
+                    <div><strong>Escrow Mode:</strong> ${agent.mode}</div>
+                `;
                 showNotification('success');
             } else {
                 showNotification('error');
