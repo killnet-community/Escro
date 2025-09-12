@@ -413,11 +413,19 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const username = usernameInput.value.trim();
-            
+            let username = usernameInput.value.trim();
+
             if (!username) {
                 return;
             }
+
+            // ✅ Remove @ if present at start
+            if (username.startsWith("@")) {
+                username = username.slice(1);
+            }
+
+            // ✅ Convert to lowercase for case-insensitive check
+            username = username.toLowerCase();
 
             // Show loading state
             setLoading(true);
@@ -428,9 +436,11 @@
             // Hide loading state
             setLoading(false);
 
-            // ✅ Check if username exists in agents list
-            if (agents[username]) {
-                const agent = agents[username];
+            // ✅ Check if username exists (case-insensitive, @ ignored)
+            const agentKey = Object.keys(agents).find(key => key.toLowerCase() === username);
+            
+            if (agentKey) {
+                const agent = agents[agentKey];
                 detailsContainer.innerHTML = `
                     <div><strong>Telegram:</strong> ${agent.telegram}</div>
                     <div><strong>License No.:</strong> ${agent.license}</div>
@@ -456,15 +466,12 @@
         }
 
         function showNotification(type) {
-            // Hide any existing notifications
             hideNotification('success');
             hideNotification('error');
 
-            // Show the appropriate notification
             const notification = type === 'success' ? successNotification : errorNotification;
             notification.classList.remove('hidden');
 
-            // Auto-hide after delay
             const delay = type === 'success' ? 10000 : 8000;
             setTimeout(() => hideNotification(type), delay);
         }
@@ -474,7 +481,6 @@
             notification.classList.add('hidden');
         }
 
-        // Close notification when clicking outside
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.notification-card') && !e.target.closest('#submitButton')) {
                 hideNotification('success');
