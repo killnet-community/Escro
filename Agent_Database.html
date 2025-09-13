@@ -399,11 +399,19 @@
 
         // ✅ Registered agents
         const agents = {
-            "Escrow_Worldwide": {
-                telegram: "@Escrow_Worldwide",
-                license: "21843595343",
-                name: "Krupal Sharma",
-                mode: "Crypto Currency"
+            "Escrow_MidMan": {
+                telegram: "@Escrow_MidMan",
+                license: "21063587343",
+                name: "Pratham Sharma",
+                mode: "Crypto Currency",
+                trades: "524"
+            },
+            "Secure_Escrower": {
+                telegram: "@Secure_Escrow",
+                license: "10967104097",
+                name: "Subham Parekh",
+                mode: "Crypto Currency",
+                trades: "872"
             }
         };
 
@@ -446,6 +454,7 @@
                     <div><strong>License No.:</strong> ${agent.license}</div>
                     <div><strong>Agent Name:</strong> ${agent.name}</div>
                     <div><strong>Escrow Mode:</strong> ${agent.mode}</div>
+                    <div><strong>Successful Trades:</strong> ${agent.trades}</div>
                 `;
                 showNotification('success');
             } else {
