@@ -310,7 +310,6 @@
 <body>
     <div class="container">
         <div class="card">
-            <!-- Header Section -->
             <div class="header">
                 <div class="icon-container">
                     <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,7 +320,6 @@
                 <p class="subtitle">Enter the Agent's Telegram username and verify it.</p>
             </div>
 
-            <!-- Form -->
             <form class="form" id="verificationForm">
                 <div class="form-group">
                     <label for="username" class="label">Telegram Username</label>
@@ -348,7 +346,6 @@
         </div>
     </div>
 
-    <!-- Success Notification -->
     <div class="notification hidden" id="successNotification">
         <div class="notification-card">
             <div class="notification-content">
@@ -368,7 +365,6 @@
         </div>
     </div>
 
-    <!-- Error Notification -->
     <div class="notification hidden" id="errorNotification">
         <div class="notification-card">
             <div class="notification-content">
@@ -404,14 +400,16 @@
                 license: "30000541485",
                 name: "Karn Gupta",
                 mode: "Crypto Currency",
-                trades: "109"
+                trades: "109",
+                licenseFor: "Russia, Pakistan, India, USA, Canada, Nepal, Afganistan"
             },
             "R_midboy": {
                 telegram: "@R_midboy",
                 license: "10760943761",
                 name: "Rahul Fernandez",
                 mode: "Crypto Currency",
-                trades: "1021"
+                trades: "1021",
+                licenseFor: "India, Russia, Pakistan, India, USA, Canada, Nepal, Afganistan, UK, Afganistan, Bangladesh"
             }
         };
 
@@ -455,6 +453,7 @@
                     <div><strong>Agent Name:</strong> ${agent.name}</div>
                     <div><strong>Escrow Mode:</strong> ${agent.mode}</div>
                     <div><strong>Successful Trades:</strong> ${agent.trades}</div>
+                    <div><strong>License For:</strong> ${agent.licenseFor}</div>
                 `;
                 showNotification('success');
             } else {
