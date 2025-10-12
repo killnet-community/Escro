@@ -105,7 +105,7 @@
         .input::placeholder {
             color: #a3a3a3;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            font-size: 0.95rem;	
+            font-size: 0.95rem; 
         }
 
         .input:focus {
@@ -302,6 +302,234 @@
             color: #ef4444;
         }
 
+        .report-button {
+            margin-top: 1rem;
+            width: 100%;
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .report-button:hover {
+            background-color: #2563eb;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: #0a0a0a;
+            border: 1px solid #262626;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 32rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fafafa;
+        }
+
+        .modal-subtitle {
+            font-size: 0.875rem;
+            color: #a3a3a3;
+            margin-top: 0.25rem;
+        }
+
+        .textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #262626;
+            border-radius: 6px;
+            background-color: #000000;
+            color: #fafafa;
+            font-size: 0.95rem;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            resize: vertical;
+            min-height: 150px;
+            transition: all 0.2s;
+        }
+
+        .textarea::placeholder {
+            color: #a3a3a3;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .char-counter {
+            font-size: 0.75rem;
+            color: #a3a3a3;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .char-counter.warning {
+            color: #ef4444;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.2s;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .modal-button.cancel {
+            background-color: #262626;
+            color: #fafafa;
+        }
+
+        .modal-button.cancel:hover {
+            background-color: #404040;
+        }
+
+        .modal-button.submit {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .modal-button.submit:hover {
+            background-color: #2563eb;
+        }
+
+        .modal-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .success-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            z-index: 200;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 1px solid #3b82f6;
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+            text-align: center;
+            min-width: 350px;
+            animation: successPopupIn 0.3s ease-out forwards;
+        }
+
+        @keyframes successPopupIn {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .success-popup-icon {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            animation: iconBounce 0.6s ease-out;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+
+        @keyframes iconBounce {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-popup-icon svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: #3b82f6;
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+            animation: checkmarkDraw 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes checkmarkDraw {
+            from {
+                stroke-dasharray: 100;
+                stroke-dashoffset: 100;
+            }
+            to {
+                stroke-dasharray: 100;
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-popup-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.4s ease-out 0.3s both;
+        }
+
+        .success-popup-subtitle {
+            font-size: 0.875rem;
+            color: #a3a3a3;
+            animation: fadeInUp 0.4s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hidden {
             display: none;
         }
@@ -360,6 +588,7 @@
                         <button class="notification-close" onclick="hideNotification('success')">✕</button>
                     </div>
                     <div class="notification-details"></div>
+                    <button class="report-button" onclick="openReportModal()">Report Agent</button>
                 </div>
             </div>
         </div>
@@ -384,6 +613,40 @@
         </div>
     </div>
 
+    <div class="modal-overlay hidden" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Report Agent</h2>
+                <p class="modal-subtitle">Please describe your concern below</p>
+            </div>
+            <div class="form-group">
+                <textarea 
+                    id="reportText" 
+                    class="textarea" 
+                    placeholder="Please provide your Email first. So we can reach out to you. Then Write your issue..."
+                    maxlength="10000"
+                ></textarea>
+                <div class="char-counter" id="charCounter">0 / 10,000 characters</div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-button cancel" onclick="cancelReport()">Cancel</button>
+                <button class="modal-button submit" id="submitReport" onclick="submitReport()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="successPopup">
+        <div class="success-popup">
+            <div class="success-popup-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="success-popup-title">Report Submitted Successfully</h3>
+            <p class="success-popup-subtitle">Thank you for your feedback</p>
+        </div>
+    </div>
+
     <script>
         const form = document.getElementById('verificationForm');
         const usernameInput = document.getElementById('username');
@@ -392,34 +655,38 @@
         const loadingSpinner = document.getElementById('loadingSpinner');
         const successNotification = document.getElementById('successNotification');
         const errorNotification = document.getElementById('errorNotification');
+        const reportModal = document.getElementById('reportModal');
+        const reportText = document.getElementById('reportText');
+        const charCounter = document.getElementById('charCounter');
+        const successPopup = document.getElementById('successPopup');
+        const submitReportBtn = document.getElementById('submitReport');
 
-        // ✅ Registered agents
         const agents = {
             "Trade_Mid": {
                 telegram: "@Trade_Mid",
                 license: "30000541485",
                 name: "Karn Gupta",
                 mode: "Crypto Currency",
-                trades: "109",
+                trades: "110",
                 licenseFor: "Russia, Pakistan, India, USA, Canada, Nepal, Afganistan"
             },
-	    "Keshav_Escrow": {
+            "Keshav_Escrow": {
                 telegram: "@Keshav_Escrow",
                 license: "100127496437",
                 name: "Keshav_Mathur",
                 mode: "Crypto Currency",
-                trades: "2668",
+                trades: "2671",
                 licenseFor: "Russia, Pakistan, India, USA, Canada, Nepal, Afganistan, Bangladesh, Malaysia, Indonesia, Kuwait"
             },
-	    "Middleman_sinha": {
+            "Middleman_sinha": {
                 telegram: "@Middleman_sinha",
                 license: "20294839744",
                 name: "Gajendra Sinha",
                 mode: "Crypto Currency",
-                trades: "628",
+                trades: "629",
                 licenseFor: "Russia, Pakistan, India, USA, Canada, Nepal, Afganistan, Bangladesh"
             },
-	    "Rodriguez_crypto": {
+            "Rodriguez_crypto": {
                 telegram: "@Rodriguez_crypto",
                 license: "21276865949",
                 name: "John Rodrigues",
@@ -427,7 +694,7 @@
                 trades: "471",
                 licenseFor: "Russia, Pakistan, India, USA, Canada, Nepal, Afganistan, Malaysia, Bangladesh"
             },
-	    "Sandy_Shukla": {
+            "Sandy_Shukla": {
                 telegram: "@Sandy_Shukla",
                 license: "14728349103",
                 name: "John Rodrigues",
@@ -440,12 +707,11 @@
                 license: "10760943761",
                 name: "Rahul Fernandez",
                 mode: "Crypto Currency",
-                trades: "1021",
+                trades: "1022",
                 licenseFor: "India, Russia, Pakistan, India, USA, Canada, Nepal, Afganistan, UK, Afganistan, Bangladesh"
             }
         };
 
-        // Target the details container inside success notification
         const detailsContainer = successNotification.querySelector(".notification-details");
 
         form.addEventListener('submit', async function(e) {
@@ -457,24 +723,18 @@
                 return;
             }
 
-            // ✅ Remove @ if present at start
             if (username.startsWith("@")) {
                 username = username.slice(1);
             }
 
-            // ✅ Convert to lowercase for case-insensitive check
             username = username.toLowerCase();
 
-            // Show loading state
             setLoading(true);
 
-            // Simulate processing time
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            // Hide loading state
             setLoading(false);
 
-            // ✅ Check if username exists (case-insensitive, @ ignored)
             const agentKey = Object.keys(agents).find(key => key.toLowerCase() === username);
             
             if (agentKey) {
@@ -519,6 +779,55 @@
         function hideNotification(type) {
             const notification = type === 'success' ? successNotification : errorNotification;
             notification.classList.add('hidden');
+        }
+
+        function openReportModal() {
+            reportModal.classList.remove('hidden');
+            reportText.value = '';
+            updateCharCounter();
+        }
+
+        function cancelReport() {
+            reportModal.classList.add('hidden');
+            resetToMainPage();
+        }
+
+        function submitReport() {
+            const text = reportText.value.trim();
+            
+            if (text.length === 0) {
+                return;
+            }
+
+            reportModal.classList.add('hidden');
+            successPopup.classList.remove('hidden');
+
+            setTimeout(() => {
+                successPopup.classList.add('hidden');
+                resetToMainPage();
+            }, 2500);
+        }
+
+        function resetToMainPage() {
+            hideNotification('success');
+            hideNotification('error');
+            usernameInput.value = '';
+            reportText.value = '';
+        }
+
+        reportText.addEventListener('input', updateCharCounter);
+
+        function updateCharCounter() {
+            const length = reportText.value.length;
+            charCounter.textContent = `${length.toLocaleString()} / 10,000 characters`;
+            
+            if (length === 10000) {
+                charCounter.classList.add('warning');
+            } else {
+                charCounter.classList.remove('warning');
+            }
+
+            submitReportBtn.disabled = length === 0;
         }
 
         document.addEventListener('click', function(e) {
