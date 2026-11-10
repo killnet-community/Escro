@@ -685,7 +685,7 @@
             let result = { found: false };
 try {
     const [res] = await Promise.all([
-        fetch("https://agent-check.killnet-license.workers.dev/", {
+        fetch("https://agent-check.killnet-license.workers.dev", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username })
